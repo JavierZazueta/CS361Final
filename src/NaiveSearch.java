@@ -8,7 +8,7 @@ public class NaiveSearch
   public static void main(String[] args)
   {
     int testIndex = 0;//will be used to know how far we were able to match from test
-    String test = args[1];
+    String test = args[1];//the string that we are looking for
     BufferedReader in;
 
     try
@@ -44,8 +44,11 @@ public class NaiveSearch
         //if there is no match and we didn't find any matches previously
         else
         {
+          testIndex = 0;
           i = 0;
         }
+
+        c = (char)in.read();
       }
     }
     catch (IOException e)
