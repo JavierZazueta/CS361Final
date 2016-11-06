@@ -4,38 +4,58 @@ public class KMPSearch
   public static int[] computeFailureTable(String pattern)
   {
     int m = pattern.length();
-    int[] failureTable = new int[m+1];
-    failureTable[1] = 0;
+    int[] failureTable = new int[m];
 
-    int k = 0;
-    for(int i = 2; i <= m; i++)
+    failureTable[0] = 0;
+
+    //all possible substrings
+    for(int i=1; i < m; i++)
     {
-      while(k > 0 && pattern.charAt(k+1) != pattern.charAt(i))
-      {
-        k = failureTable[k];
-      }
-      if(pattern.charAt(k+1) == pattern.charAt(i))
-      {
-        k = k+1;
-      }
-      failureTable[i] = k;
+      String currentScanned = pattern.substring(0, i+1);
+      System.out.println("currentScanned = " + currentScanned);
+      failureTable[i] = longestOverlap(currentScanned, pattern);
     }
     return failureTable;
   }
 
-  public static void main(String[] args)
+  private static int longestOverlap(String currentScanned, String pattern)
   {
-    String p = "abcdabd";
-    int[] failureTable = computeFailureTable(p);
-
-    for(int i=0; i<failureTable.length; i++)
+    int l = currentScanned.length();
+    int currentLongest = 0;
+    //longest prefix must not be equal to the current scanned, hence l-1
+    for(int i=1; i < l; i++)
     {
-      System.out.print(failureTable[i]);
-      if(!(i == failureTable.length-1))
+      String suffix = currentScanned.substring(l-i,l);
+      String prefix = pattern.substring(0, i);
+      if(prefix.equals(suffix))
       {
-        System.out.print(", ");
+        currentLongest = prefix.length();
       }
     }
-    System.out.println();
+    return currentLongest;
   }
+
+  public static void stringSearchKMP(String text, String pattern)
+  {
+    int[] failureTable = computeFailureTable(pattern);
+//    printFailureTable(failureTable);
+    int s = text.length();
+    int m = pattern.length();
+    //IMPLEMENT A FOR LOOP FOR KMP
+  }
+
+  private static void printFailureTable(int[] failureTable)
+  {
+    for(int i=0 ; i<failureTable.length; i++)
+    {
+      System.out.println(failureTable[i]);
+    }
+  }
+
+  public static void main(String[] args)
+  {
+//    int[] fTable = computeFailureTable("aabaababd");
+    stringSearchKMP("abcdab abcdabcdabde", "abcdabd");
+  }
+
 }
