@@ -39,6 +39,7 @@ public class NaiveSearch
             {
               i++;
             }
+            else i = 0;
           }
         }
         //if there is no match and we didn't find any matches previously
