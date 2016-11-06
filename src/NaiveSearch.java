@@ -16,10 +16,10 @@ public class NaiveSearch
       in = new BufferedReader(new FileReader(args[0]));
 
       int i = 0;
-      char c = (char)in.read();
-      while (c != '\0')//while we have not read a null char
+      int c;
+      while ((c = in.read()) > -1)//while we have not read a null char
       {
-        if(c == test.indexOf(i))
+        if(c == (int)test.charAt(i))
         {
           i++;
           testIndex++;
@@ -35,10 +35,11 @@ public class NaiveSearch
           i = 0;
           for(int j = 0; j < testIndex; j++)
           {
-            if(test.indexOf(i) == test.indexOf(j))
+            if(test.charAt(i) == test.charAt(j))
             {
               i++;
             }
+            else i = 0;
           }
         }
         //if there is no match and we didn't find any matches previously
@@ -47,8 +48,6 @@ public class NaiveSearch
           testIndex = 0;
           i = 0;
         }
-
-        c = (char)in.read();
       }
     }
     catch (IOException e)
