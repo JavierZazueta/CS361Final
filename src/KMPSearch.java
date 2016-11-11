@@ -89,7 +89,7 @@ public class KMPSearch
 //        } catch(Exception e){}
       }
     }
-    while(k < n-m);
+    while(k < n);
 
     System.out.println("Found " + occurences + " occurence(s) of " + pattern + " in " + text);
     return "Found " + occurences + " occurence(s) of \"" + pattern + "\"" + " in " + "\"" + text + "\"";
@@ -107,7 +107,7 @@ public class KMPSearch
   public static void main(String[] args)
   {
     int[] fTable = computeFailureTable("abcdabd");
-    stringSearchKMP("catdog", "cat");
+    stringSearchKMP("dogcat", "cat");
 //    printFailureTable(fTable);
 //    stringSearchKMP("abcdab abcdabcdabde", "abcdabd");
   }
