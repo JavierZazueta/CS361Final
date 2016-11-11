@@ -12,7 +12,7 @@ public class KMPSearch
     for(int i=1; i < m; i++)
     {
       String currentScanned = pattern.substring(0, i+1);
-      System.out.println("currentScanned = " + currentScanned);
+//      System.out.println("currentScanned = " + currentScanned);
       failureTable[i] = longestOverlap(currentScanned, pattern);
     }
     return failureTable;
@@ -34,14 +34,65 @@ public class KMPSearch
     }
     return currentLongest;
   }
-
-  public static void stringSearchKMP(String text, String pattern)
+  public static String stringSearchKMP(String text, String pattern)
   {
+    int occurences = 0;
     int[] failureTable = computeFailureTable(pattern);
 //    printFailureTable(failureTable);
-    int s = text.length();
+    int n = text.length();
     int m = pattern.length();
-    //IMPLEMENT A FOR LOOP FOR KMP
+
+    int matched = 0;
+    int k = 0;
+
+    //do while ensures that early exit happens
+    do
+    {
+      int j = 0;
+      while(j < m)
+      {
+        char pChar = pattern.charAt(j);
+        char tChar = text.charAt(k);
+        System.out.print("pattern["+j+"]="+pChar+" , text["+k+"]="+tChar);
+        if(pChar == tChar)
+        {
+          matched++;
+          j++;
+          k++;
+        }
+        else if(pChar != tChar) //mismatched
+        {
+          if(matched > 0)
+          {
+            j = failureTable[matched-1];
+            matched = failureTable[matched-1];
+          }
+          else if(matched == 0)
+          {
+            j = 0;
+            k++;
+            if(k >= n-m)
+            {
+              break;
+            }
+          }
+        }
+        System.out.println(", matched="+matched);
+        if(matched == m) {
+          System.out.println("found pattern on index " + (k - m + 1) + " of the text.");
+          occurences++;
+          matched = 0;
+        }
+//        //for testing:
+//        try {
+//          Thread.sleep(250);
+//        } catch(Exception e){}
+      }
+    }
+    while(k < n-m);
+
+    System.out.println("Found " + occurences + " occurence(s) of " + pattern + " in " + text);
+    return "Found " + occurences + " occurence(s) of \"" + pattern + "\"" + " in " + "\"" + text + "\"";
   }
 
   private static void printFailureTable(int[] failureTable)
@@ -52,10 +103,13 @@ public class KMPSearch
     }
   }
 
+
   public static void main(String[] args)
   {
-//    int[] fTable = computeFailureTable("aabaababd");
-    stringSearchKMP("abcdab abcdabcdabde", "abcdabd");
+    int[] fTable = computeFailureTable("abcdabd");
+    stringSearchKMP("catdog", "cat");
+//    printFailureTable(fTable);
+//    stringSearchKMP("abcdab abcdabcdabde", "abcdabd");
   }
 
 }

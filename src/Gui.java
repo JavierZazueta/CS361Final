@@ -39,6 +39,8 @@ public class Gui
     toSearchFrom = new TextField();
     toSearchFrom.setPrefSize(300, 20);
 
+    toSearchFrom.setText("String Here");
+
     readButton = new Button("Read");
     readButton.setTranslateX(toSearchFrom.getTranslateX() +
             toSearchFrom.getPrefWidth() + BORDER);
@@ -46,19 +48,21 @@ public class Gui
     patternToSearchFor = new TextField();
     patternToSearchFor.setTranslateY(toSearchFrom.getPrefHeight() + BORDER*2);
     patternToSearchFor.setPrefSize(150, 20);
+    patternToSearchFor.setText("Pattern Here");
 
     findPattern = new Button("Find Pattern");
     findPattern.setTranslateY(toSearchFrom.getPrefHeight() + BORDER*2);
     findPattern.setTranslateX(patternToSearchFor.getPrefWidth() + BORDER);
 
-    inputGroup.getChildren().addAll(toSearchFrom, readButton, patternToSearchFor, findPattern);
+//    inputGroup.getChildren().add(readButton);
+    inputGroup.getChildren().addAll(toSearchFrom, patternToSearchFor, findPattern);
   }
 
   private void setUpButtons()
   {
-    readButton.setOnAction(ae->
+    findPattern.setOnAction(ae->
     {
-      previewToSearchFrom.setText(toSearchFrom.getText());
+      previewToSearchFrom.setText(KMPSearch.stringSearchKMP(toSearchFrom.getText(), patternToSearchFor.getText()));
     });
   }
 
