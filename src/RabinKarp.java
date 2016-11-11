@@ -15,9 +15,9 @@ public class RabinKarp
   }
 
   //hashes a string
-  private long hashString(String p)
+  private double hashString(String p)
   {
-    long h = 0;
+    double h = 0;
     for(int i = 0; i < pLength; i++)
     {
       h += (int)p.charAt(i) * Math.pow(E, pLength-(i+1));
@@ -26,17 +26,17 @@ public class RabinKarp
   }
 
   //gets the next hash. subtracts the first value then adds the last value
-  private long nextHash(long old, char first, char last)
+  private double nextHash(double old, char first, char last)
   {
     double newHash = (old-first*Math.pow(E, pLength-1))*E + last;
-    return (long)newHash % q[rand];
+    return newHash % q[rand];
   }
 
   private boolean findInstance(String pattern, String file)
   {
     String current = file.substring(0,pLength);
-    long pHashVal = hashString(pattern);
-    long currentHashVal = hashString(current);
+    double pHashVal = hashString(pattern);
+    double currentHashVal = hashString(current);
     if(pHashVal == currentHashVal)
     {
       return true;
@@ -56,6 +56,13 @@ public class RabinKarp
   {
     pLength = args[1].length();
 
-
+    if(findInstance(args[1], args[0]))
+    {
+      System.out.println("The pattern " + args[1] + ", was found.");
+    }
+    else
+    {
+      System.out.println("The pattern " + args[1] + ", does not exist in the file.");
+    }
   }
 }
