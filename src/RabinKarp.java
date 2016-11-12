@@ -43,7 +43,7 @@ public class RabinKarp
     }
     else
     {
-      for (int i = 0; i < file.length()-pLength; i++)
+      for (int i = 0; i < file.length()-pLength-1; i++)
       {
         if (currentHashVal == nextHash(currentHashVal, current.charAt(0), current.charAt(pLength-1))) return true;
         current = file.substring(i, i+pLength);
