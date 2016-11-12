@@ -63,11 +63,11 @@ public class RabinKarp
 
     if(findInstance(args[1], args[0]))
     {
-      System.out.println("The pattern " + args[1] + ", was found.");
+      System.out.println("The pattern " + args[1] + ", was found");
     }
     else
     {
-      System.out.println("The pattern " + args[1] + ", does not exist in the file.");
+      System.out.println("The pattern " + args[1] + ", does not exist in the file");
     }
   }
 }
