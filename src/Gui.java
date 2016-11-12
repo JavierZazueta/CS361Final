@@ -6,6 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Box;
 
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Gui
 {
@@ -39,7 +42,7 @@ public class Gui
     toSearchFrom = new TextField();
     toSearchFrom.setPrefSize(300, 20);
 
-    toSearchFrom.setText("String Here");
+    toSearchFrom.setText("File name of file to read here.");
 
     readButton = new Button("Read");
     readButton.setTranslateX(toSearchFrom.getTranslateX() +
@@ -62,7 +65,17 @@ public class Gui
   {
     findPattern.setOnAction(ae->
     {
-      previewToSearchFrom.setText(KMPSearch.stringSearchKMP(toSearchFrom.getText(), patternToSearchFor.getText()));
+      try
+      {
+        BufferedReader bR = new BufferedReader(new FileReader("src/"+toSearchFrom.getText()));
+        int length = KMPSearch.lengthOfText("src/"+toSearchFrom.getText());
+//        previewToSearchFrom.setText(KMPSearch.stringSearchKMP(toSearchFrom.getText(), patternToSearchFor.getText()));
+        previewToSearchFrom.setText(KMPSearch.stringSearchKMP(bR, patternToSearchFor.getText(), length));
+      }
+      catch(IOException e)
+      {
+        previewToSearchFrom.setText("Can't find the file named " + toSearchFrom.getText() +"." );
+      }
     });
   }
 
