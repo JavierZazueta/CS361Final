@@ -8,6 +8,7 @@ public class NaiveSearch
   public static void main(String[] args)
   {
     int testIndex = 0;//will be used to know how far we were able to match from test
+    int instances = 0;
     String test = args[1];//the string that we are looking for
     BufferedReader in;
 
@@ -25,8 +26,7 @@ public class NaiveSearch
           testIndex++;
           if(i == test.length())
           {
-            System.out.println("Found " + test);
-            break;
+            instances++;
           }
         }
         //we cannot look past what we have read, because we could potentially miss the match
@@ -49,6 +49,8 @@ public class NaiveSearch
           i = 0;
         }
       }
+      System.out.println("There are " + instances + " of " + test + " in the file");
+
     }
     catch (IOException e)
     {
