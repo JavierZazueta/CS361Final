@@ -28,10 +28,10 @@ public class NaiveSearch
             instances++;
             i = 0;
             testIndex = 1;
-         }
+          }
         }
         //we cannot look past what we have read, because we could potentially miss the match
-        else if (testIndex != 0)
+        else if (testIndex > 0)
         {
           i = 0;
           for(int j = 1; j < testIndex; j++)
