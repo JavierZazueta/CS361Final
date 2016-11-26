@@ -130,7 +130,7 @@ public class KMPSearch
         while (j < m)
         {
           char pChar = pattern.charAt(j);
-          System.out.print("pattern[" + j + "]=" + pChar + " , text[" + k + "]=" + tChar);
+//          System.out.print("pattern[" + j + "]=" + pChar + " , text[" + k + "]=" + tChar);
           if (pChar == tChar)
           {
             matched++;
@@ -156,10 +156,10 @@ public class KMPSearch
               }
             }
           }
-          System.out.println(", matched=" + matched);
+//          System.out.println(", matched=" + matched);
           if (matched == m)
           {
-            System.out.println("found pattern on index " + (k - m + 1) + " of the text.");
+//            System.out.println("found pattern on index " + (k - m + 1) + " of the text.");
             occurences++;
             matched = 0;
           }
