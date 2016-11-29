@@ -2,10 +2,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class NaiveSearch
 {
   static int instances = 0;
+  static ArrayList<Integer> locations = new ArrayList<>();
 
   static void countInstances(String pattern, String file)
   {
@@ -16,6 +18,7 @@ public class NaiveSearch
       {
         if (pattern.charAt(j) != file.charAt(i+j))
         {
+          locations.add(i-m+1);
           break;
         }
         if (j==m-1 && (pattern.charAt(j) == file.charAt(i+j)))
@@ -26,6 +29,10 @@ public class NaiveSearch
       }
     }
     System.out.println("Found " + instances +" of the pattern " + pattern);
+    for(int i : locations)
+    {
+      System.out.println("Found at " + i);
+    }
   }
   
   public static int lengthOfText(String fileName) throws IOException
@@ -53,10 +60,6 @@ public class NaiveSearch
       countInstances(pattern, text);
     }
     catch (FileNotFoundException e)
-    {
-      e.printStackTrace();
-    }
-    catch (IOException e)
     {
       e.printStackTrace();
     }
